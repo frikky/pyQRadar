@@ -1,0 +1,23 @@
+[
+	{
+	"name": "offenses",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "databases",
+	"parent": "ariel",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "servers", 
+	"parent": "system",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	}
+]
