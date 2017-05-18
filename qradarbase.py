@@ -51,33 +51,42 @@ class QRadarAPI(object):
 
 		return response
 
-	def verify_function(self, pre, path, function, id=0):
-		for item in json.load(open("database2.json", "r")): 
-			#print item["name"]
+	def verify_function(self, path, function, id=0):
+		for item in json.load(open("database.json", "r")): 
 			if item["name"] == path:
-				if not id:
-					return True
+				if function not in item["function"]:
+					raise QRadarError("405", "Function %s is not available for %s" % (function, item["parent"]))
 
-		return False 
+				return item["parent"]
 
-	def get(self, pre, path, id=0, **kwargs):
+		return False
+
+	def get(self, path, id=0, **kwargs):
 		# Add error codes
-		#if not self.verify_function(pre, path, "GET"):
-		#raise QRadarError(405, "Function %s not implemented in ")
+		verification = self.verify_function(path, "GET", id)
+		if not verification:
+			raise QRadarError(405, "Error not implemented yet - either bad functionname or bad parameter for name.")
 			
-		resp = self.session.get(self._url_builder(pre, path, id), **self._kwarg_builder(**kwargs))
+		resp = self.session.get(self._url_builder(verification, path, id), **self._kwarg_builder(**kwargs))
 		if 'stream' in kwargs:
 			return resp
 		else:
 			return self.resp_error_check(resp)
 
-	def post(self, pre, path, **kwargs):
-		resp = self.session.post(self._url_builder(pre, path, id), **self._kwarg_builder(**kwargs))
+	def post(self, path, **kwargs):
+		verification = self.verify_function(path, "POST", id)
+		if not verification:
+			raise QRadarError(405, "Error not implemented yet - either bad functionname or bad parameter for name.")
+
+		# Might not work completly yet
+		resp = self.session.post(self._url_builder(verification, path, id), **self._kwarg_builder(**kwargs))
 		if 'stream' in kwargs:
 			return resp
 		else:
-			return self.resp_error_check(resp)
+			return self.resp_error_check(resp).json()
 
+	"""
+	# Not yet fully implemented
 	def delete(self, pre, path, **kwargs):
 		resp = self.session.delete(self._url_builder(pre, path, id), **self._kwarg_builder(**kwargs))
 		if 'stream' in kwargs:
@@ -91,3 +100,4 @@ class QRadarAPI(object):
 			return resp
 		else:
 			return self.resp_error_check(resp)
+	"""

@@ -1,7 +1,35 @@
 [
 	{
-	"name": "offenses",
-	"parent": "siem",
+	"name": "ade_rules",
+	"parent": "analytics",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "build_blocks",
+	"parent": "analytics",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "custom_cations",
+	"parent": "analytics",
+	"usable": "False",
+	"function": [""],
+	"id": "False"
+	},
+	{
+	"name": "rule_groups",
+	"parent": "analytics",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "rules",
+	"parent": "analytics",
 	"usable": "True",
 	"function": ["GET"],
 	"id": "True"
@@ -11,13 +39,371 @@
 	"parent": "ariel",
 	"usable": "True",
 	"function": ["GET"],
-	"id": "True" 
+	"id": "True"
 	},
 	{
-	"name": "servers", 
-	"parent": "system",
+	"name": "database_name",
+	"parent": "ariel",
 	"usable": "True",
 	"function": ["GET"],
 	"id": "True"
+	},
+	{
+	"name": "flow_saved_search_group",
+	"parent": "ariel",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "saved_search_delete_tasks",
+	"parent": "ariel",
+	"usable": "False",
+	"function": [""],
+	"id": "False"
+	},
+	{
+	"name": "saved_search_dependent_tasks",
+	"parent": "ariel",
+	"usable": "False",
+	"function": [""],
+	"id": "False"
+	},
+	{
+	"name": "saved_searches",
+	"parent": "ariel",
+	"usable": "True",
+	"function": ["GET","POST"],
+	"id": "True"
+	},
+	{
+	"name": "assets",
+	"parent": "asset_model",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "properties",
+	"parent": "asset_model",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "False"
+	},
+	{
+	"name": "saved_search_groups",
+	"parent": "asset_model",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "saved_searches",
+	"parent": "asset_model",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "logout",
+	"parent": "auth",
+	"usable": "True",
+	"function": ["POST"],
+	"id": "False"
+	},
+	{
+	"name": "access",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False"
+	},
+	{
+	"name": "domain_management",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False"
+	},
+	{
+	"name": "event_retention_buckets",
+	"parent": "config",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "event_sources",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False"
+	},
+	{
+	"name": "extension_management",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False"
+	},
+	{
+	"name": "flow_retention_buckets",
+	"parent": "config",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "flow_sources",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False" 
+	},
+	{
+	"name": "global_system_notifications", 
+	"parent": "config",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True"
+	},
+	{
+	"name": "network_hierarchy",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False" 
+	},
+	{
+	"name": "flow_sources",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False" 
+	},
+	{
+	"name": "resource_restrictions",
+	"parent": "config",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "store_and_forward",
+	"parent": "config",
+	"usable": "False",
+	"function": [""],
+	"id": "False" 
+	},
+	{
+	"name": "dsm_event_mappings",
+	"parent": "data_classification",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "high_level_categories",
+	"parent": "data_classification",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "low_level_categories",
+	"parent": "data_classification",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "qid_records",
+	"parent": "data_classification",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "map_delete_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "map_dependent_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "map_of_sets",
+	"parent": "reference_data",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "map_of_sets_delete_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "map_of_sets_dependent_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "maps",
+	"parent": "reference_data",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "set_delete_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "set_dependent_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "sets",
+	"parent": "reference_data",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "tables",
+	"parent": "reference_data",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "tables_delete_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "tables_dependent_tasks",
+	"parent": "reference_data",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "local_destination_address",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "offense_closing_reasons",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "True" 
+	},
+	{
+	"name": "offense_saved_search_delete_tasks",
+	"parent": "siem",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "offense_saved_search_dependent_tasks",
+	"parent": "siem",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "offense_saved_search_groups",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "offense_saved_searches",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "offense_types",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "offenses",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "source_addresses",
+	"parent": "siem",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
+	},
+	{
+	"name": "deploy_status",
+	"parent": "staged_config",
+	"usable": "True",
+	"function": ["GET", "POST"],
+	"id": "False" 
+	},
+	{
+	"name": "global_system_notifications",
+	"parent": "staged_config",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "False" 
+	},
+	{
+	"name": "yara_rules",
+	"parent": "staged_config",
+	"usable": "True",
+	"function": ["PUT", "DELETE"],
+	"id": "False" 
+	},
+
+	{
+	"name": "information",
+	"parent": "system",
+	"usable": "False",
+	"function": [""],
+	"id": "True" 
+	},
+	{
+	"name": "servers",
+	"parent": "system",
+	"usable": "True",
+	"function": ["GET"],
+	"id": "True" 
 	}
 ]

@@ -15,10 +15,9 @@ class QRadar(QRadarAPI):
 		self.header["SEC"] = token
 
 		# Attempting to remove the first part of this based on the API used
-		response = self.get('data_classification', 'dsm_event_mappings', 50, headers=self.header)
+		response = self.post('servers', headers=self.header)
+		print response
 		if response.status_code == 200:
-			for items in asd.json():
-				print items
 			print "Logged in."
 		else:
 			print "Some error :O"
@@ -26,7 +25,7 @@ class QRadar(QRadarAPI):
 
 if __name__ == "__main__":
 	# IP in this one
-	qradar = QRadar()
+	qradar = QRadar("<qradar IP>")
 
 	# Token in this one. Nedds to be admin for some methods. 	
-	asd = qradar.login("")
+	asd = qradar.login("<token here>")
