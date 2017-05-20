@@ -1,103 +1,90 @@
 import json
 import requests
 
-class QRadarError(Exception):
-	def __init__(self, code, msg):
-		self.code = code
-		self.msg = msg
+class QRadarSetupError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
 
-	def __str__(self):
-		return repr('[%s]: %s' % (self.code, self.msg))
+    def __str__(self):
+        return repr('%s' % self.msg)
+
+class QRadarError(Exception):
+    def __init__(self, code, msg):
+        self.code = code
+        self.msg = msg
+
+    def __str__(self):
+        return repr('[%s]: %s' % (self.code, self.msg))
 
 class QRadarAPI(object):
-	def __init__(self, host, port=443, ssl_verify=False, scheme='https'):
-		self.session = requests.Session()
-		self.scheme = scheme
-		self.host = host
-		self.port = port
-		self.ssl_verify = ssl_verify
+    def __init__(self, host, port=443, ssl_verify=False, scheme='https'):
+        self.session = requests.Session()
+        self.scheme = scheme
+        self.host = host
+        self.port = port
+        self.ssl_verify = ssl_verify
 
-	def _url_builder(self, pre, path, id=""):
-		url = "%s://%s:%s/api/%s/%s" % (self.scheme, self.host, self.port, pre, path)
-		if id:
-			try:
-				url += "/%s" % int(id)
-			except ValueError:
-				raise QRadarError("405", "Id needs to be an integer.")
-			
-		return url
+    def _url_builder(self, path, id=""):
+        url = "%s://%s:%s/api/%s" % (self.scheme, self.host, self.port, path)
+        if id:
+            try:
+                url += "/%s" % int(id)
+            except ValueError:
+                raise QRadarError("405", "\"Id\" needs to be an integer.")
 
-	def _kwarg_builder(self, **kwargs):
-		if "headers" not in kwargs:
-			kwargs["headers"] = {}
+        return url
 
-		# Default set to false.
-		kwargs['verify'] = self.ssl_verify
+    def _kwarg_builder(self, **kwargs):
+        if "headers" not in kwargs:
+            kwargs["headers"] = {}
 
-		if not self.ssl_verify:
-			requests.packages.urllib3.disable_warnings(\
-			requests.packages.urllib3.exceptions.InsecureRequestWarning)
+        # Default set to false.
+        kwargs['verify'] = self.ssl_verify
 
-		return kwargs
+        if not self.ssl_verify:
+            requests.packages.urllib3.disable_warnings(\
+                requests.packages.urllib3.exceptions.InsecureRequestWarning)
 
-	def resp_error_check(self, response):
-		try:
-			d = response.json()
+        return kwargs
 
-			if response.status_code != 200:
-				raise QRadarError(response.status_code, d["message"])
-		except ValueError:
-			pass
+    def _resp_error_check(self, response):
+        try:
+            d = response.json()
 
-		return response
+            if response.status_code != 200:
+                raise QRadarError(response.status_code, d["message"])
+        except ValueError:
+            pass
 
-	def verify_function(self, path, function, id=0):
-		for item in json.load(open("database.json", "r")): 
-			if item["name"] == path:
-				if function not in item["function"]:
-					raise QRadarError("405", "Function %s is not available for %s" % (function, item["parent"]))
+        return response
 
-				return item["parent"]
+    def get(self, path, **kwargs):
+        response = self.session.get(self._url_builder(path),\
+            **self._kwarg_builder(**kwargs))
 
-		return False
+        return self._resp_error_check(response)
 
-	def get(self, path, id=0, **kwargs):
-		# Add error codes
-		verification = self.verify_function(path, "GET", id)
-		if not verification:
-			raise QRadarError(405, "Error not implemented yet - either bad functionname or bad parameter for name.")
-			
-		resp = self.session.get(self._url_builder(verification, path, id), **self._kwarg_builder(**kwargs))
-		if 'stream' in kwargs:
-			return resp
-		else:
-			return self.resp_error_check(resp)
+    # Check for data.
+    def post(self, path, **kwargs):
+        response = self.session.post(self._url_builder(path),\
+            **self._kwarg_builder(**kwargs))
 
-	def post(self, path, **kwargs):
-		verification = self.verify_function(path, "POST", id)
-		if not verification:
-			raise QRadarError(405, "Error not implemented yet - either bad functionname or bad parameter for name.")
+        return self._resp_error_check(response)
 
-		# Might not work completly yet
-		resp = self.session.post(self._url_builder(verification, path, id), **self._kwarg_builder(**kwargs))
-		if 'stream' in kwargs:
-			return resp
-		else:
-			return self.resp_error_check(resp).json()
+    def put(self, path, **kwargs):
+        response = self.session.put(self._url_builder(path),\
+            **self._kwarg_builder(**kwargs))
 
-	"""
-	# Not yet fully implemented
-	def delete(self, pre, path, **kwargs):
-		resp = self.session.delete(self._url_builder(pre, path, id), **self._kwarg_builder(**kwargs))
-		if 'stream' in kwargs:
-			return resp
-		else:
-			return self.resp_error_check(resp)
+        return self._resp_error_check(response)
 
-	def put(self, pre, path, **kwargs):
-		resp = self.session.delete(self._url_builder(pre, path, id), **self._kwarg_builder(**kwargs))
-		if 'stream' in kwargs:
-			return resp
-		else:
-			return self.resp_error_check(resp)
-	"""
+    def delete(self, path, **kwargs):
+        response = self.session.delete(self._url_builder(path),\
+            **self._kwarg_builder(**kwargs))
+
+        return self._resp_error_check(response)
+
+    def head(self, path, **kwargs):
+        response = self.session.head(self._url_builder(path),\
+            **self._kwarg_builder(**kwargs))
+
+        return self._resp_error_check(response)
