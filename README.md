@@ -34,14 +34,12 @@ Functions:
 # Todo
 * (DONE) - Make it available in easy\_install/pip
 * (DONE) - Make import easier without "from qradar import pyQRadar" (init file)
-* Set default headers, to make it uneccessary in get/post etc.
-* Create examples for how to use it.
+* (Partly done) - Set default headers, to make it uneccessary in get/post etc.
+* (Started) - Create examples for how to use it.
 * Create error checks, especially for DELETE and PUT functions. 
+* Return json objects.
 * Further testing of all request types.
 * Have further header information checks.
 * Add logging
 * Add timeouts
 * Make it work for python 3
-
-# Why it sucks currently
-This was done in about four hours, so don't expect it to work properly yet.
