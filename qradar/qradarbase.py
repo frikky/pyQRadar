@@ -26,6 +26,8 @@ class QRadarAPI(object):
 
     def _url_builder(self, path, id=""):
         url = "%s://%s:%s/api/%s" % (self.scheme, self.host, self.port, path)
+
+		# Might be legacy
         if id:
             try:
                 url += "/%s" % int(id)
@@ -38,8 +40,9 @@ class QRadarAPI(object):
         if "headers" not in kwargs:
             kwargs["headers"] = {}
 
-        # Default set to false.
         kwargs['verify'] = self.ssl_verify
+
+		# Add json data recognition for json= or data=
 
         if not self.ssl_verify:
             requests.packages.urllib3.disable_warnings(\
