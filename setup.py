@@ -3,7 +3,7 @@ import os
 
 setup(
     name="pyqradar",
-    version='0.1.1',
+    version='0.2',
     description="QRadar API Library",
     author='@Frikkylikeme',
     author_email="fredrik_9490@hotmail.com",
