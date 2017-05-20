@@ -18,4 +18,6 @@ class QRadar(QRadarAPI):
     def login(self):
         # Attempting to remove the first part of this based on the API used
         # Might be a bad idea as you need admin for this one.
-        return self.get('servers', headers=self.header)
+		if self.get('system/servers', headers=self.header).status_code == 200:
+			return "Admin priviliges available."
+			
