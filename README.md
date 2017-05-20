@@ -6,11 +6,28 @@ This is an attempt at creating a complete library for the QRadar API with error 
 
 [QRadar example repository without the library](https://github.com/ibm-security-intelligence/api-samples) 
 
+# Installation 
+
+Installation is made public in pypi and easy\_install.
+
+`pip install pyqradar`
+
+`easy_instal install pyqradar`
+
+# Usage
+The project is not yet production level. Do not use it yet, but it works for simple tests.
+
+The project is a simple wrapper to remove the need for handling via Requests. Available functions are login(), get(), post(), delete() and put(). login() is not required, but is a test to see if you have admin rights where it checks for system/servers. Below is a simple code test:
+
+	>>> import qradar 
+	>>> qradar = qradar.QRadar('HOSTNAME')
+	>>> qradar.login()
+
 # Todo
-* Make it available in easy\_install/pip.
+* (DONE) - Make it available in easy\_install/pip
 * Create error checks, especially for DELETE and PUT functions. 
 * Create examples for how to use it.
-* Testing of other than GET and POST functions.
+* Further testing of all request types.
 * Have further header information checks.
 * Add logging
 * Make it work for python 3
