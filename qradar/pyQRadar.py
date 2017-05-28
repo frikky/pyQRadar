@@ -2,7 +2,7 @@ from qradarbase import QRadarAPI, QRadarError, QRadarSetupError
 
 # Replace object with \BaseAPI
 class QRadar(QRadarAPI):
-    def __init__(self, host, SEC_token='', port=443, ssl_verify=False, scheme='https'):
+    def __init__(self, host, SEC_token='', port=443, ssl_verify=False, scheme='https', timeout=10):
         if not SEC_token:
             raise QRadarSetupError("Usage: pyQRadar.QRadar(\"ip\",\"token\")") 
 
@@ -13,7 +13,7 @@ class QRadar(QRadarAPI):
             'SEC': '%s' % SEC_token
         }
 
-        QRadarAPI.__init__(self, host, port, ssl_verify, scheme)
+        QRadarAPI.__init__(self, host, port, ssl_verify, scheme, timeout)
 
     def login(self):
         # Attempting to remove the first part of this based on the API used

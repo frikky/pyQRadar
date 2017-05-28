@@ -17,12 +17,13 @@ class QRadarError(Exception):
         return repr('[%s]: %s' % (self.code, self.msg))
 
 class QRadarAPI(object):
-    def __init__(self, host, port=443, ssl_verify=False, scheme='https'):
+    def __init__(self, host, port=443, ssl_verify=False, scheme='https', timeout=10):
         self.session = requests.Session()
         self.scheme = scheme
         self.host = host
         self.port = port
         self.ssl_verify = ssl_verify
+        self.timeout = timeout
 
     def _url_builder(self, path, id=""):
         url = "%s://%s:%s/api/%s" % (self.scheme, self.host, self.port, path)
@@ -38,11 +39,12 @@ class QRadarAPI(object):
 
     def _kwarg_builder(self, **kwargs):
         if "headers" not in kwargs:
-            kwargs["headers"] = {}
+            kwargs["headers"] = self.header
 
         kwargs['verify'] = self.ssl_verify
+        kwargs['timeout'] = self.timeout
 
-		# Add json data recognition for json= or data=
+        # Add json data recognition for json= or data=
 
         if not self.ssl_verify:
             requests.packages.urllib3.disable_warnings(\

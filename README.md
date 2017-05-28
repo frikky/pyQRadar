@@ -22,24 +22,17 @@ The project is a simple wrapper to remove the need for handling via Requests. Be
 	>>> qradar.login()
 	'Admin priviliges available.'
 
-Further documentation of the following functions will is upcomming:
-
-Functions:
-* get()
-* post()
-* delete()
-* put()
-* login()
+Further documentation will be made available as it gets tested more.
 
 # Todo
 * (DONE) - Make it available in easy\_install/pip
 * (DONE) - Make import easier without "from qradar import pyQRadar" (init file)
-* (Partly done) - Set default headers, to make it uneccessary in get/post etc.
+* (DONE) - Set default headers, to make it uneccessary in get/post etc.
 * (Started) - Create examples for how to use it.
-* Create error checks, especially for DELETE and PUT functions. 
-* Return json objects.
+* Create multiple error checks, especially for destructive constructs like DELETE and PUT. 
+* Return json objects instead of plain data.
 * Further testing of all request types.
 * Have further header information checks.
 * Add logging
-* Add timeouts
-* Make it work for python 3
+* (DONE) - Add timeouts - Default set to 10
+* Make it work for python 3 - It might actually work already if built from source.
