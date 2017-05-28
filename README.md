@@ -36,3 +36,4 @@ Further documentation will be made available as it gets tested more.
 * Add logging
 * (DONE) - Add timeouts - Default set to 10
 * Make it work for python 3 - It might actually work already if built from source.
+* Add a changelog for versions
