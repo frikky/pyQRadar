@@ -25,6 +25,7 @@ The project is a simple wrapper to remove the need for handling via Requests. Be
 Further documentation will be made available as it gets tested more.
 
 # Todo
+* Failure in error handling - KeyError 'message' line 58
 * (DONE) - Make it available in easy\_install/pip
 * (DONE) - Make import easier without "from qradar import pyQRadar" (init file)
 * (DONE) - Set default headers, to make it uneccessary in get/post etc.
