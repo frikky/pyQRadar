@@ -12,7 +12,7 @@ Installation is made public in pypi and easy\_install.
 
 `pip install pyqradar`
 
-`easy_instal install pyqradar`
+`easy_install install pyqradar`
 
 # Usage
 The project is a simple wrapper to remove the need for handling via Requests. Below is a test to see if you have admin rights where it checks for system/servers.  
